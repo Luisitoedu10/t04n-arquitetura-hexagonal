@@ -14,7 +14,7 @@ public class PessoaDto {
         return nomeCompleto;
     }
 
-    public void setNome(String nomeCompleto) {
+    public void setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
 

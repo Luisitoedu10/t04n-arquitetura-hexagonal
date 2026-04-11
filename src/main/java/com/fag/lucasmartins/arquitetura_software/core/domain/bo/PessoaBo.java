@@ -45,7 +45,7 @@ public class PessoaBo {
         return nomeCompleto;
     }
 
-    public void setNome(String nomeCompleto) {
+    public void setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
 

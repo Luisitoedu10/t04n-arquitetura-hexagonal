@@ -13,9 +13,19 @@ public class PessoaDtoMapper {
         bo.setCpf(dto.getCpf());
         bo.setDataNascimento(dto.getDataNascimento());
         bo.setEmail(dto.getEmail());
-        bo.setNome(dto.getNomeCompleto());
+        bo.setNomeCompleto(dto.getNomeCompleto());
         bo.setTelefone(dto.getTelefone());
         
         return bo;
     }
+
+    public static PessoaDto toDto(PessoaBo bo) {
+        final PessoaDto dto = new PessoaDto();
+        dto.setCpf(bo.getCpf());
+        dto.setDataNascimento(bo.getDataNascimento);
+        dto.setEmail(bo.getEmail());
+        dto.setNomeCompleto(bo.getNomeCompleto());
+        dto.setTelefone(bo.getTelefone());
+    }
+
 }
