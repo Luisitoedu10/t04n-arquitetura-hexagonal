@@ -22,10 +22,12 @@ public class PessoaDtoMapper {
     public static PessoaDto toDto(PessoaBo bo) {
         final PessoaDto dto = new PessoaDto();
         dto.setCpf(bo.getCpf());
-        dto.setDataNascimento(bo.getDataNascimento);
+        dto.setDataNascimento(bo.getDataNascimento());
         dto.setEmail(bo.getEmail());
         dto.setNomeCompleto(bo.getNomeCompleto());
         dto.setTelefone(bo.getTelefone());
+
+        return dto;
     }
 
 }

@@ -13,14 +13,13 @@ public class PessoaBo {
     private String telefone;
     private LocalDate dataNascimento;
 
-    LocalDate hoje = LocalDate.now();
-    int idade = Period.between(this.dataNascimento, hoje).getYears();
 
     public void validarMaioridadePessoa() {
+        int idade = Period.between(this.dataNascimento, LocalDate.now()).getYears();
         if (idade < 18) {
             throw new DomainException("Erro: Você deve ter pelo menos 18 anos.");
         }
-    }
+}
 
     public void validarCpfPessoa() {
         if (this.cpf.length() != 11) {
