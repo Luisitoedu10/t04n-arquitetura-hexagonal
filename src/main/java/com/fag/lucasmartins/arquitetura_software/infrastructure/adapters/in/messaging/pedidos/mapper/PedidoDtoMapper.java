@@ -1,14 +1,14 @@
 package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.messaging.pedidos.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fag.lucasmartins.arquitetura_software.core.domain.bo.PedidoBO;
 import com.fag.lucasmartins.arquitetura_software.core.domain.bo.PedidoProdutoBO;
+import com.fag.lucasmartins.arquitetura_software.core.domain.bo.PessoaBO;
 import com.fag.lucasmartins.arquitetura_software.core.domain.bo.ProdutoBO;
 import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.messaging.pedidos.dto.OrderItemDto;
 import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.messaging.pedidos.dto.PedidoEventDto;
-import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.rest.mapper.PessoaDTOMapper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PedidoDtoMapper {
 
@@ -18,11 +18,18 @@ public class PedidoDtoMapper {
         }
 
         PedidoBO pedido = new PedidoBO();
-        pedido.setCep(pedidoEventDto.getZipCode());
         
-        if (pedidoEventDto.getPessoa() != null) {
-            pedido.setPessoa(PessoaDTOMapper.toBo(pedidoEventDto.getPessoa()));
+        if (pedidoEventDto.getCustomerId() != null && !pedidoEventDto.getCustomerId().isEmpty()) {
+            try {
+                PessoaBO pessoa = new PessoaBO();
+                pessoa.setId(Integer.parseInt(pedidoEventDto.getCustomerId()));
+                pedido.setPessoa(pessoa);
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("CustomerId inválido: " + pedidoEventDto.getCustomerId(), e);
+            }
         }
+        
+        pedido.setCep(pedidoEventDto.getZipCode());
 
         if (pedidoEventDto.getOrderItems() != null && !pedidoEventDto.getOrderItems().isEmpty()) {
             List<PedidoProdutoBO> itens = new ArrayList<>();
@@ -32,6 +39,14 @@ public class PedidoDtoMapper {
                 item.setQuantidade(orderItem.getAmount());
 
                 ProdutoBO produto = new ProdutoBO();
+                // Converter SKU (String) para Integer
+                if (orderItem.getSku() != null) {
+                    try {
+                        produto.setId(orderItem.getSku());
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("SKU inválido: " + orderItem.getSku(), e);
+                    }
+                }
                 item.setProduto(produto);
 
                 itens.add(item);

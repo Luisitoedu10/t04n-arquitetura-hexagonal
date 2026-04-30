@@ -3,12 +3,9 @@ package com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.mes
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.fag.lucasmartins.arquitetura_software.infrastructure.adapters.in.rest.dto.PessoaDTO;
-
 public class PedidoEventDto {
     private String zipCode;
     private String customerId;
-    private PessoaDTO pessoa;
     private List<OrderItemDto> orderItems;
     private String origin;
     private LocalDateTime occurredAt;
@@ -16,11 +13,10 @@ public class PedidoEventDto {
     public PedidoEventDto() {
     }
 
-    public PedidoEventDto(String zipCode, String customerId, PessoaDTO pessoa, 
+    public PedidoEventDto(String zipCode, String customerId, 
                           List<OrderItemDto> orderItems, String origin, LocalDateTime occurredAt) {
         this.zipCode = zipCode;
         this.customerId = customerId;
-        this.pessoa = pessoa;
         this.orderItems = orderItems;
         this.origin = origin;
         this.occurredAt = occurredAt;
@@ -40,14 +36,6 @@ public class PedidoEventDto {
 
     public void setCustomerId(String customerId) {
         this.customerId = customerId;
-    }
-
-    public PessoaDTO getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(PessoaDTO pessoa) {
-        this.pessoa = pessoa;
     }
 
     public List<OrderItemDto> getOrderItems() {
